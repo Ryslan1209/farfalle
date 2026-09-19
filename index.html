@@ -1535,7 +1535,7 @@ dialog:not([open]),
         </div>
         <div class="section-actions">
           <div class="checklist-progress">
-            <span id="ingredients-progress-text">Собрано: 0 / 9</span>
+            <span id="ingredients-progress-text">Собрано: 0 / 10</span>
             <div class="progress-track">
               <div id="ingredients-progress-bar" class="progress-fill" style="width: 0%;"></div>
             </div>
@@ -1576,11 +1576,11 @@ dialog:not([open]),
           </div>
           <div class="card-body">
             <h3 class="ing-name">Паста Фарфалле («Бабочки»)</h3>
-            <p class="brand-rec"><strong>Бренд:</strong> Barilla (Farfalle n.65) или De Cecco (n.93). Твердые сорта — не развариваются.</p>
+            <p class="brand-rec"><strong>Бренд:</strong> Barilla (Farfalle n.65) или De Cecco (n.93). Твердые сорта. 240 г — точный шеф-баланс: соус не впитается досуха!</p>
           </div>
           <div class="ing-calc">
-            <span class="amount" data-base-amount="300" data-unit="г">300 г</span>
-            <span class="badge-subtle">Твердые сорта</span>
+            <span class="amount" data-base-amount="240" data-unit="г">240 г</span>
+            <span class="badge-subtle">Баланс соуса</span>
           </div>
         </div>
 
@@ -1702,11 +1702,29 @@ dialog:not([open]),
           </div>
           <div class="card-body">
             <h3 class="ing-name">Чеснок & Свежий перец</h3>
-            <p class="brand-rec">Зубчики просто раздавим ножом и потом выбросим. Перец — крупного помола из мельницы.</p>
+            <p class="brand-rec">Зубчики раздавим ножом и обжарим в масле (aglio in camicia). Перец — крупного помола из мельницы.</p>
           </div>
           <div class="ing-calc">
             <span class="amount" data-base-amount="3" data-unit="зубчика">3 зубчика</span>
             <span class="badge-subtle">+ перец</span>
+          </div>
+        </div>
+
+        <!-- 10. Lemon & Parsley -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="lemon-herbs" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Лимон & Свежая петрушка</h3>
+            <p class="brand-rec"><strong>Шеф-секрет:</strong> Свежая цедра 1/2 лимона (только желтый слой) снимает жирность сливок 33%, а петрушка дает свежесть.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="1" data-unit="набор">1 набор</span>
+            <span class="badge-fresh">Свежесть</span>
           </div>
         </div>
       </div>
@@ -1731,7 +1749,7 @@ dialog:not([open]),
             <span class="checkmark"></span>
           </label>
           <div class="prep-text">
-            <strong>1. Подготовить лосось:</strong> Снять кожу (если есть), проверить пальцами реберные косточки и удалить. Посолить с двух сторон (<span class="amt" data-base="0.5" data-unit="ч. л.">0.5 ч. л.</span> соли) и поперчить из мельницы.
+            <strong>1. Поставить воду на плиту прямо сейчас:</strong> В кастрюлю налейте <span class="amt" data-base="2.5" data-unit="л">2.5 л</span> воды и включите <strong>мощность 9 (Boost)</strong>. Вода должна бурно кипеть к моменту начала жарки.
           </div>
         </div>
         <div class="prep-item">
@@ -1740,7 +1758,7 @@ dialog:not([open]),
             <span class="checkmark"></span>
           </label>
           <div class="prep-text">
-            <strong>2. Помидоры черри:</strong> Вымыть и разрезать <span class="amt" data-base="10" data-unit="шт">10 шт.</span> пополам.
+            <strong>2. Подготовить лосось:</strong> Снять кожу (если есть), проверить пальцами косточки. Посолить с двух сторон (<span class="amt" data-base="0.5" data-unit="ч. л.">0.5 ч. л.</span> соли) и поперчить из мельницы.
           </div>
         </div>
         <div class="prep-item">
@@ -1749,7 +1767,7 @@ dialog:not([open]),
             <span class="checkmark"></span>
           </label>
           <div class="prep-text">
-            <strong>3. Чеснок:</strong> Очистить <span class="amt" data-base="3" data-unit="зубчика">3 зубчика</span> и сплющить плоской стороной широкого ножа.
+            <strong>3. Помидоры черри:</strong> Вымыть и разрезать <span class="amt" data-base="10" data-unit="шт">10 шт.</span> пополам.
           </div>
         </div>
         <div class="prep-item">
@@ -1758,7 +1776,7 @@ dialog:not([open]),
             <span class="checkmark"></span>
           </label>
           <div class="prep-text">
-            <strong>4. Пармезан:</strong> Натереть <span class="amt" data-base="90" data-unit="г">90 г</span> на самой мелкой тёрке в миску.
+            <strong>4. Чеснок (Aglio in camicia):</strong> Очистить <span class="amt" data-base="3" data-unit="зубчика">3 зубчика</span> и слегка расплющить плоской стороной широкого ножа. Они пойдут в масло к лососю в самом начале!
           </div>
         </div>
         <div class="prep-item">
@@ -1767,7 +1785,16 @@ dialog:not([open]),
             <span class="checkmark"></span>
           </label>
           <div class="prep-text">
-            <strong>5. Хлеб & Вино:</strong> Нарезать чиабатту толстыми ломтями. Отмерить <span class="amt" data-base="100" data-unit="мл">100 мл</span> вина в стакан, остальное разлить по бокалам.
+            <strong>5. Пармезан:</strong> Натереть <span class="amt" data-base="90" data-unit="г">90 г</span> на самой мелкой тёрке в миску (вмешивается в конце без прямого огня).
+          </div>
+        </div>
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>6. Хлеб, Вино & Зелень:</strong> Нарезать чиабатту толстыми ломтями. Отмерить <span class="amt" data-base="100" data-unit="мл">100 мл</span> вина в стакан. Снять мелкой теркой цедру с 1/2 лимона и порубить пару веточек петрушки.
           </div>
         </div>
       </div>
@@ -1800,7 +1827,7 @@ dialog:not([open]),
           <div class="burner-meta">
             <span class="burner-badge">КОНФОРКА 2</span>
             <h4>Сковорода (Основной соус)</h4>
-            <span class="heat-pill" id="pan-heat-indicator">Мощность: 7 ➔ 4 ➔ 6</span>
+            <span class="heat-pill" id="pan-heat-indicator">Мощность: 7 ➔ 4 ➔ без огня</span>
           </div>
         </div>
       </div>
@@ -1816,7 +1843,8 @@ dialog:not([open]),
               <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
             </div>
             <p class="step-instructions">
-              Поставьте сухую сковороду на конфорку на мощность <strong>7</strong>. <strong>Без масла!</strong> Выложите ломти чиабатты и подсушите ровно по 1 минуте с каждой стороны до золотистого хруста. Снимите на тарелку.
+              Поставьте сухую сковороду на конфорку на мощность <strong>7</strong>. <strong>Без масла!</strong> Выложите ломти чиабатты и подсушите ровно по 1 минуте с каждой стороны до золотистого хруста. Снимите на тарелку.<br>
+              💡 <strong>Шеф-правило:</strong> Смахните со сковороды сухие крошки бумажной салфеткой, чтобы они не сгорели в масле при жарке рыбы.
             </p>
             <div class="step-timer-wrapper">
               <div class="timer-display" data-duration="120" id="timer-display-1">02:00</div>
@@ -1833,14 +1861,15 @@ dialog:not([open]),
           <div class="step-badge">02</div>
           <div class="step-content">
             <div class="step-header">
-              <h3 class="step-title">Запуск пасты Фарфалле</h3>
+              <h3 class="step-title">Запуск пасты Фарфалле — Старт синхронизации</h3>
               <span class="step-appliance">🫕 Кастрюля • Мощность 9 (Boost)</span>
             </div>
             <p class="step-instructions">
-              В кастрюлю налейте <span class="amt" data-base="2.5" data-unit="л">2.5 л</span> воды, доведите до бурного кипения на максимуме. Всыпьте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> соли</strong> и засыпьте <strong><span class="amt" data-base="300" data-unit="г">300 г</span> фарфалле</strong>. Перемешайте. Варим строго <strong>9 минут</strong> (al dente).
+              Вода в кастрюле бурно кипит. Всыпьте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> соли</strong> и засыпьте <strong><span class="amt" data-base="240" data-unit="г">240 г</span> фарфалле</strong>. Перемешайте. Варим строго <strong>9 минут</strong> (al dente).<br>
+              ⚡ <strong>Шеф-синхронизация:</strong> Запустите таймер пасты и <strong>В ЭТУ ЖЕ СЕКУНДУ</strong> переходите к Шагу 3 (жарка лосося). Время соуса ровно 8.5 минут — паста и рыба будут готовы секунда в секунду!
             </p>
             <div class="callout warning-callout">
-              ⚠️ <strong>Важно:</strong> Воду после варки пасты НЕ выливать! В ней ценный крахмал для эмульсии соуса.
+              ⚠️ <strong>Важно:</strong> Воду после варки пасты НЕ выливать в раковину! В ней ценный крахмал для эмульсии соуса.
             </div>
             <div class="step-timer-wrapper">
               <div class="timer-display" data-duration="540" id="timer-display-2">09:00</div>
@@ -1857,11 +1886,11 @@ dialog:not([open]),
           <div class="step-badge">03</div>
           <div class="step-content">
             <div class="step-header">
-              <h3 class="step-title">Обжарка лосося — Сторона 1</h3>
+              <h3 class="step-title">Ароматизация масла чесноком и лосось — Сторона 1</h3>
               <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
             </div>
             <p class="step-instructions">
-              В горячую сковороду налейте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> растительного масла</strong> и бросьте <strong><span class="amt" data-base="40" data-unit="г">40 г</span> сливочного масла</strong>. Масло вспенится. Выложите стейки лосося. <strong>Не двигайте рыбу</strong> 2 минуты, чтобы запечаталась золотистая корочка.
+              В горячую чистую сковороду налейте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> растительного масла</strong>, бросьте <strong><span class="amt" data-base="40" data-unit="г">40 г</span> сливочного масла</strong> и положите <span class="amt" data-base="3" data-unit="зубчика">3 раздавленных зубчика</span> чеснока. Масло вспенится и впитает орехово-чесночный аромат (aglio in camicia). Выложите стейки лосося. <strong>Не двигайте рыбу</strong> 2 минуты, чтобы запечаталась золотистая корочка.
             </p>
             <div class="step-timer-wrapper">
               <div class="timer-display" data-duration="120" id="timer-display-3">02:00</div>
@@ -1882,7 +1911,7 @@ dialog:not([open]),
               <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
             </div>
             <p class="step-instructions">
-              Переверните стейки лопаткой на вторую сторону. Жарим ровно 1.5 минуты. Корочка запечатает соки внутри.
+              Переверните стейки лопаткой на вторую сторону. Жарим ровно 1.5 минуты. Зубчики чеснока сдвиньте на стейки или к краю сковороды, чтобы они не подгорели. Соки рыбы надежно запечатаны внутри.
             </p>
             <div class="step-timer-wrapper">
               <div class="timer-display" data-duration="90" id="timer-display-4">01:30</div>
@@ -1903,33 +1932,33 @@ dialog:not([open]),
               <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
             </div>
             <p class="step-instructions">
-              Влейте в сковороду <strong><span class="amt" data-base="100" data-unit="мл">100 мл</span> белого вина</strong>. Оно зашипит. Лопаткой <strong>разломайте стейк на крупные сочные кусочки</strong> (размером с грецкий орех). Кипятите 1 минуту для полного выпаривания резкого алкоголя.
+              Влейте в сковороду <strong><span class="amt" data-base="100" data-unit="мл">100 мл</span> сухого белого вина</strong>. Лопаткой <strong>разломайте стейки на крупные сочные кусочки</strong> (размером с грецкий орех). Кипятите 1.5 минуты на мощности 7 — резкий алкоголь полностью испарится, а на дне образуется насыщенный ароматный концентрат.
             </p>
             <div class="step-timer-wrapper">
-              <div class="timer-display" data-duration="60" id="timer-display-5">01:00</div>
+              <div class="timer-display" data-duration="90" id="timer-display-5">01:30</div>
               <div class="timer-controls">
-                <button class="btn-timer start-timer-btn" data-timer-id="5">▶ Выпарить вино (1 мин)</button>
+                <button class="btn-timer start-timer-btn" data-timer-id="5">▶ Выпарить вино (1.5 мин)</button>
                 <button class="btn-timer-reset reset-timer-btn" data-timer-id="5" title="Сбросить">↺</button>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- STEP 6: CREAM & PARMESAN -->
+        <!-- STEP 6: CREAM & CHERRY -->
         <article class="step-card" data-step="6">
           <div class="step-badge">06</div>
           <div class="step-content">
             <div class="step-header">
-              <h3 class="step-title">Томление в сливках 33% и сыр</h3>
+              <h3 class="step-title">Томление в сливках 33% и томаты черри</h3>
               <span class="step-appliance">🍳 Сковорода • Мощность 4 (Тихое кипение)</span>
             </div>
             <p class="step-instructions">
-              Бросьте в сковороду половинки черри и <span class="amt" data-base="3" data-unit="зубчика">3 зубчика</span> чеснока. Залейте <strong><span class="amt" data-base="350" data-unit="мл">350 мл</span> сливок 33%</strong>. Убавьте нагрев до <strong>4</strong>. Дайте слабо побулькать 3 минуты. В конце всыпьте <strong>3/4 натертого пармезана</strong> и поперчите. Соус загустеет.
+              Добавьте в сковороду половинки черри и залейте <strong><span class="amt" data-base="350" data-unit="мл">350 мл</span> сливок 33%</strong>. Убавьте нагрев до <strong>4</strong>. Томите ровно 3.5 минуты при спокойном кипении: сливки уварятся и загустеют, а черри отдадут сладость. ⚠️ <strong>Пармезан на огне не добавлять</strong>, чтобы не свернулся крупинками!
             </p>
             <div class="step-timer-wrapper">
-              <div class="timer-display" data-duration="180" id="timer-display-6">03:00</div>
+              <div class="timer-display" data-duration="210" id="timer-display-6">03:30</div>
               <div class="timer-controls">
-                <button class="btn-timer start-timer-btn" data-timer-id="6">▶ Томить соус (3 мин)</button>
+                <button class="btn-timer start-timer-btn" data-timer-id="6">▶ Томить соус (3.5 мин)</button>
                 <button class="btn-timer-reset reset-timer-btn" data-timer-id="6" title="Сбросить">↺</button>
               </div>
             </div>
@@ -1941,11 +1970,11 @@ dialog:not([open]),
           <div class="step-badge">07</div>
           <div class="step-content">
             <div class="step-header">
-              <h3 class="step-title">Мантекатура: Объединение пасты с соусом</h3>
-              <span class="step-appliance">🍳 Сковорода • Мощность 6</span>
+              <h3 class="step-title">Мантекатура: Эмульсия без огня</h3>
+              <span class="step-appliance">🍳 Сковорода • Огонь 1–2 / без нагрева</span>
             </div>
             <p class="step-instructions">
-              Паста сварилась! Шумовкой или щипцами переложите фарфалле <strong>прямо в соус</strong>. Зачерпните из кастрюли <strong><span class="amt" data-base="70" data-unit="мл">70 мл</span> крахмальной воды</strong> и вылейте в сковороду. На мощности <strong>6</strong> активно перемешивайте 1.5 минуты. Соус превратится в шелковую эмульсию и плотно облепит пасту. Снимите с огня, зубчики чеснока удалите.
+              Таймер пасты зазвенел! Шумовкой переложите фарфалле <strong>прямо в соус</strong>. Добавьте <strong><span class="amt" data-base="80" data-unit="мл">80 мл</span> горячей крахмальной воды</strong> из кастрюли. <strong>Убавьте огонь на 1 или снимите сковороду</strong>. Всыпьте <strong>3/4 натертого пармезана</strong>, добавьте щепотку цедры лимона и свежемолотый перец. Энергично перемешивайте 1.5 минуты: крахмал свяжет сливки и сыр в зеркальную бархатную эмульсию без комочков. Зубчики чеснока удалите.
             </p>
             <div class="step-timer-wrapper">
               <div class="timer-display" data-duration="90" id="timer-display-7">01:30</div>
@@ -1966,8 +1995,8 @@ dialog:not([open]),
               <span class="step-appliance">Подача</span>
             </div>
             <p class="step-instructions">
-              Поставьте горячую сковороду прямо в центр стола на деревянную доску или разложите по глубоким подогретым тарелкам. Посыпьте сверху остатками пармезана и свежемолотым черным перцем. Рядом выложите подсушенную чиабатту.<br>
-              <strong>Макайте хрустящий хлеб в горячий сливочно-лососевый соус. Приятного аппетита!</strong>
+              Поставьте горячую сковороду прямо в центр стола на деревянную доску или разложите по глубоким подогретым тарелкам. Посыпьте сверху остатками пармезана, свежей петрушкой и свежемолотым черным перцем. Рядом выложите подсушенную чиабатту.<br>
+              <strong>Ломайте хрустящий хлеб и вымакивайте горячий сливочно-лососевый соус (итальянская scarpetta). Приятного аппетита!</strong>
             </p>
           </div>
         </article>
@@ -2045,6 +2074,36 @@ dialog:not([open]),
       <div class="faq-accordion">
         <details class="faq-item">
           <summary class="faq-question">
+            <span>Почему именно 240 г пасты на 350 мл сливок?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            В сухом виде 240 г кажется немного, но при варке паста увеличивается почти втрое (~600 г). Вместе с 450 г лосося это целый килограмм еды! Если взять 300–350 г пасты, она впитает все сливки за 60 секунд и станет сухим комком. При 240 г соус остается роскошным кремом, который обволакивает фарфалле и щедро остается на дне тарелки, чтобы макать чиабатту.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Почему пармезан вмешивают без сильного огня?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Это классический закон итальянской <em>мантекатуры</em>. При прямом кипении белок выдержанного сыра (казеин) сворачивается в резиновые песчинки, а жир отслаивается масляной пленкой. Вмешивая сыр при выключенном огне вместе с крахмальной водой, вы получаете идеально гладкую, шелковистую зеркальную эмульсию ресторанного уровня.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Зачем добавлять цедру лимона?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Сливки 33%, лосось и сливочное масло — блюдо с высоким содержанием жиров. Без свежей ноты после 4–5 ложек наступает вкусовая усталость («приторность»). Тонкая желтая цедра лимона содержит эфирные масла цитруса, которые разрезают плотность сливок и дают невероятную свежесть, не створаживая соус в отличие от кислого лимонного сока.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
             <span>Кажется, соус получился слишком густым?</span>
             <span class="chevron">▼</span>
           </summary>
@@ -2069,7 +2128,7 @@ dialog:not([open]),
             <span class="chevron">▼</span>
           </summary>
           <div class="faq-answer">
-            Сливки жирностью 33% <strong>никогда не сворачиваются</strong> от вина или нагрева — в них слишком высокая доля молочного жира, защищающего белок. Именно поэтому брать 10% или 20% категорически нельзя!
+            Сливки жирностью 33% <strong>никогда не сворачиваются</strong> от вина или нагрева — вино выпаривается на шаге 5, а высокая доля молочного жира 33% защищает белок. Именно поэтому брать 10% или 20% категорически нельзя!
           </div>
         </details>
 
@@ -2927,13 +2986,13 @@ function syncDockHeight(height) {
 // 8. Конфорки
 // -------------------------------------------------------------
 const BURNER_MAP = {
-  1: { pan: 'Мощность: 7' },
-  2: { pot: 'Мощность: 9 (Boost)' },
-  3: { pan: 'Мощность: 7' },
-  4: { pan: 'Мощность: 7' },
-  5: { pan: 'Мощность: 7' },
-  6: { pan: 'Мощность: 4 (томление)' },
-  7: { pot: 'Воду не выливать!', pan: 'Мощность: 6 (мантекатура)' },
+  1: { pan: 'Мощность: 7 (сухая сковорода)' },
+  2: { pot: 'Мощность: 9 (Boost — варка)' },
+  3: { pan: 'Мощность: 7 (масло, чеснок, рыба)' },
+  4: { pan: 'Мощность: 7 (сторона 2)' },
+  5: { pan: 'Мощность: 7 (выпаривание вина)' },
+  6: { pan: 'Мощность: 4 (тихое томление)' },
+  7: { pot: 'Воду не выливать!', pan: 'Огонь 1–2 / без огня (эмульсия)' },
   8: { }
 };
 
