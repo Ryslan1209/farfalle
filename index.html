@@ -1,0 +1,3309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Farfalle al Salmone — интерактивный рецепт</title>
+  <meta name="description" content="Интерактивный кулинарный гид: фарфалле со стейком лосося в сливках 33%, синхронизация на 2 конфорки, живые таймеры, синхронизация телефон-ПК.">
+  <meta name="theme-color" content="#0e0f12">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9D%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+/* Farfalle al Salmone — Minimal Matte Dark Theme */
+
+:root {
+  --bg-main: #0e0f12;
+  --bg-surface: #15161b;
+  --bg-card: #1b1d23;
+  --bg-card-hover: #22252d;
+  --bg-subtle: #2a2d36;
+
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(255, 255, 255, 0.28);
+  --border-warm: rgba(224, 122, 95, 0.35);
+
+  --color-primary: #ffffff;
+  --color-primary-text: #0e0f12;
+
+  --color-warm: #e07a5f;
+  --color-warm-light: #f29e85;
+  --color-warm-bg: rgba(224, 122, 95, 0.12);
+
+  --color-sage: #34d399;
+  --color-sage-bg: rgba(52, 211, 153, 0.12);
+
+  /* Fallback aliases */
+  --color-gold: var(--color-warm);
+  --color-gold-light: var(--color-warm-light);
+  --color-gold-glow: rgba(224, 122, 95, 0.2);
+  --color-salmon: var(--color-warm);
+  --color-salmon-bg: var(--color-warm-bg);
+  --color-emerald: var(--color-sage);
+  --color-emerald-bg: var(--color-sage-bg);
+
+  --text-primary: #f4f4f6;
+  --text-secondary: #9ea3b0;
+  --text-muted: #646a78;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: var(--font-sans);
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-elevated: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-main);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, label, summary, .scaler-btn, .btn-timer, .nav-link {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------- HERO HEADER ---------------- */
+.hero-header {
+  padding: 40px 0 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.brand-badge {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.brand-date {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon-text {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 15px;
+  border-radius: var(--radius-full);
+  font-size: 0.84rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+.btn-icon-text:hover {
+  background: var(--bg-card);
+  border-color: var(--border-medium);
+}
+
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+  transition: background 0.3s ease;
+}
+.sync-dot.offline {
+  background: var(--text-muted);
+  box-shadow: none;
+}
+.sync-dot.syncing {
+  background: var(--color-warm);
+  animation: pulseDot 0.8s infinite;
+}
+
+.btn-primary-glow {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+.btn-primary-glow:hover {
+  background: #f0f0f2;
+}
+
+.hero-content {
+  padding: 4px 0;
+}
+
+.recipe-title {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.1;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+
+.recipe-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 660px;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+/* ---------------- STICKY SUB-BAR ---------------- */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 15, 18, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 0;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.portion-scaler {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scaler-label {
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+.scaler-controls {
+  display: flex;
+  align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+.scaler-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.scaler-btn:hover:not(:disabled) {
+  background: var(--bg-card);
+  color: #fff;
+}
+.scaler-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.scaler-value {
+  padding: 0 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: #fff;
+}
+.scaler-hint {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+.nav-link.active {
+  background: var(--bg-card);
+  color: #fff;
+  border: 1px solid var(--border-medium);
+}
+
+/* ---------------- CONTENT SECTIONS ---------------- */
+.content-section {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  scroll-margin-top: 68px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--color-warm);
+  margin-bottom: 4px;
+}
+
+.section-heading {
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.section-desc {
+  max-width: 640px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-top: 6px;
+  line-height: 1.55;
+}
+
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.checklist-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 140px;
+}
+#ingredients-progress-text {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+.progress-fill.complete {
+  background: var(--color-sage);
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 15px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: var(--transition);
+}
+.btn-secondary:hover {
+  background: var(--bg-card);
+  border-color: var(--border-medium);
+}
+
+/* ---------------- INGREDIENTS LIST ---------------- */
+.ingredients-grid {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ingredient-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
+  transition: background 0.15s ease, opacity 0.2s ease;
+  position: relative;
+}
+.ingredient-card:last-child {
+  border-bottom: none;
+}
+.ingredient-card:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.ingredient-card.checked {
+  opacity: 0.45;
+  background: rgba(0, 0, 0, 0.15);
+}
+.ingredient-card.checked .ing-name {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-tag {
+  display: none;
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.custom-checkbox input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+.custom-checkbox:hover input ~ .checkmark {
+  border-color: var(--border-active);
+}
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--color-sage);
+  border-color: var(--color-sage);
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 11px;
+  border: solid #0e0f12;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.card-body {
+  min-width: 0;
+}
+.ing-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  line-height: 1.35;
+}
+.brand-rec {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.brand-rec strong {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.ing-calc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.ing-calc .amount {
+  font-family: var(--font-mono);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+.badge-fresh,
+.badge-critical,
+.badge-subtle {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge-fresh {
+  background: var(--color-sage-bg);
+  color: var(--color-sage);
+}
+.badge-critical {
+  background: var(--color-warm-bg);
+  color: var(--color-warm);
+}
+.badge-subtle {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+}
+
+/* ---------------- DUAL BURNER STATUS BAR ---------------- */
+.burner-overview-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.burner-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: var(--transition);
+}
+.burner-card.active-burner {
+  border-color: var(--border-active);
+  background: var(--bg-card);
+}
+.cookware-icon {
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.burner-meta {
+  flex: 1;
+  min-width: 0;
+}
+.burner-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.burner-meta h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 1px 0 3px;
+}
+.heat-pill {
+  display: inline-block;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ---------------- MISE EN PLACE CHECKLIST ---------------- */
+.prep-checklist-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 6px 18px;
+}
+.prep-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.prep-item:last-child {
+  border-bottom: none;
+}
+.prep-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.prep-item.completed .prep-text {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+/* ---------------- TIMELINE COOKING STEPS ---------------- */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.step-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  transition: var(--transition);
+  scroll-margin-top: 76px;
+}
+.step-card:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-card);
+}
+.step-card.active-step {
+  border-color: var(--border-active);
+  background: var(--bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.step-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+.step-badge.finish-badge {
+  background: #fff;
+  color: #0e0f12;
+  border-color: #fff;
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.step-appliance {
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+}
+
+.step-instructions {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.callout {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.warning-callout {
+  background: var(--color-warm-bg);
+  border-left: 2px solid var(--color-warm);
+  color: var(--color-warm-light);
+}
+
+/* Step Timer Component */
+.step-timer-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 400px;
+  margin-top: 4px;
+  transition: var(--transition);
+}
+.step-timer-wrapper.timer-running {
+  border-color: var(--border-active);
+  background: var(--bg-subtle);
+}
+.step-timer-wrapper.timer-done {
+  border-color: var(--color-sage);
+  background: var(--color-sage-bg);
+}
+
+.timer-display {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-timer {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  color: #fff;
+  padding: 7px 15px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.btn-timer:hover {
+  background: #fff;
+  color: #0e0f12;
+  border-color: #fff;
+}
+.btn-timer.running {
+  background: var(--color-warm-bg);
+  border-color: var(--border-warm);
+  color: var(--color-warm-light);
+}
+
+.btn-timer-reset {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.btn-timer-reset:hover {
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+/* ---------------- SERVING & TIPS ---------------- */
+.mood-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.mood-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+.mood-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mood-icon {
+  font-size: 1.2rem;
+}
+.mood-head h3 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  flex: 1;
+}
+.mood-progress {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+}
+.mood-progress.done {
+  color: var(--color-sage);
+  background: var(--color-sage-bg);
+}
+.mood-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mood-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 0;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+.mood-item input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.mood-item .checkmark {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.mood-text {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.mood-item.completed .mood-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.mood-facts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.mood-facts li {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  padding-left: 14px;
+  position: relative;
+}
+.mood-facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border-medium);
+}
+.mood-facts strong {
+  color: var(--text-primary);
+}
+
+/* ---------------- FAQ ACCORDION ---------------- */
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.faq-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.faq-item[open] {
+  border-color: var(--border-medium);
+  background: var(--bg-card);
+}
+.faq-question {
+  padding: 15px 18px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  list-style: none;
+}
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+.chevron {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] .chevron {
+  transform: rotate(180deg);
+  color: var(--text-primary);
+}
+.faq-answer {
+  padding: 0 18px 15px;
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+/* ---------------- MODALS (CHEF & SYNC) ---------------- */
+dialog:not([open]),
+.chef-modal:not([open]) {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.chef-modal {
+  border: none;
+  border-radius: var(--radius-lg);
+  background: #121317;
+  color: var(--text-primary);
+  width: min(740px, 92vw);
+  max-height: 88vh;
+  margin: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--border-medium);
+  padding: 0;
+  overflow: hidden;
+}
+.chef-modal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.chef-modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.chef-modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chef-modal-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 200px;
+}
+#chef-step-indicator {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.chef-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.chef-bar-fill {
+  height: 100%;
+  width: 12.5%;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+.chef-wake-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-sage);
+  background: var(--color-sage-bg);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: var(--radius-full);
+  padding: 3px 9px;
+}
+.chef-wake-pill[hidden] {
+  display: none;
+}
+.chef-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.chef-close-btn:hover {
+  color: #fff;
+  border-color: var(--border-medium);
+}
+.chef-modal-body {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.chef-appliance-pill {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+.chef-step-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.chef-step-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 580px;
+  line-height: 1.55;
+}
+.chef-giant-timer-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+.giant-time {
+  font-family: var(--font-mono);
+  font-size: clamp(2.8rem, 6.5vw, 4.2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.chef-timer-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.chef-btn-action {
+  background: #fff;
+  color: #0e0f12;
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.chef-btn-action:hover {
+  background: #eaeaea;
+}
+.chef-btn-secondary {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 9px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.chef-btn-secondary:hover {
+  background: var(--bg-subtle);
+}
+.chef-next-preview {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.chef-modal-footer {
+  padding: 18px 24px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chef-keys-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+.chef-nav-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.chef-nav-btn.primary {
+  background: #fff;
+  color: #0e0f12;
+  border-color: #fff;
+}
+
+/* ---------------- SYNC MODAL STYLING ---------------- */
+.sync-modal {
+  width: min(580px, 92vw);
+}
+.sync-modal-title h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.sync-modal-title p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.sync-modal-body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.sync-qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.sync-qr-img {
+  width: 150px;
+  height: 150px;
+  border-radius: var(--radius-md);
+  background: #fff;
+  padding: 6px;
+}
+.sync-qr-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+.sync-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sync-code-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sync-code-label {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.sync-code-val {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+.sync-join-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sync-join-box label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.sync-input-row {
+  display: flex;
+  gap: 8px;
+}
+.sync-input-row input {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 7px 14px;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  outline: none;
+}
+.sync-input-row input:focus {
+  border-color: var(--border-active);
+}
+
+/* ---------------- FIXED TIMER DOCK ---------------- */
+.timer-dock {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 900;
+  width: min(840px, calc(100vw - 28px));
+  background: rgba(21, 22, 27, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-elevated);
+}
+.timer-dock.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+.timers-bar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-warm);
+  animation: pulseDot 1.6s infinite;
+}
+.bar-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.active-timers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.timer-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 5px 8px 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.timer-chip-name {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  max-width: 24ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timer-chip-time {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #fff;
+  font-size: 1rem;
+}
+.timer-chip-stop {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+}
+.timer-chip-stop:hover {
+  background: var(--bg-subtle);
+}
+
+/* ---------------- TOAST NOTIFICATIONS ---------------- */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none !important;
+  max-width: min(360px, calc(100vw - 32px));
+}
+.toast {
+  background: var(--bg-surface);
+  color: #fff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 11px 15px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-elevated);
+  pointer-events: auto !important;
+  animation: toastIn 0.25s ease-out;
+}
+.toast.leaving {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* ---------------- FOOTER ---------------- */
+.site-footer {
+  padding: 36px 0 calc(36px + var(--dock-height, 0px));
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.btn-ghost {
+  margin-top: 14px;
+  background: none;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  padding: 7px 18px;
+  font-size: 0.78rem;
+  transition: var(--transition);
+}
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.amt {
+  color: #fff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .step-card {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 12px;
+  }
+  .step-badge {
+    width: 32px;
+    height: 32px;
+    font-size: 0.76rem;
+  }
+  .ingredient-card {
+    grid-template-columns: auto 1fr;
+    padding: 13px 15px;
+    gap: 12px;
+  }
+  .ing-calc {
+    grid-column: 2;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .burner-overview-bar {
+    grid-template-columns: 1fr;
+  }
+  .mood-grid {
+    grid-template-columns: 1fr;
+  }
+  .chef-modal-body {
+    padding: 22px 16px;
+  }
+  .chef-keys-hint {
+    display: none;
+  }
+  .sync-modal-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-items: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Main Navigation / Header -->
+  <header class="hero-header">
+    <div class="container">
+      <div class="top-bar">
+        <div class="brand">
+          <span class="brand-badge">FARFALLE AL SALMONE</span>
+          <span class="brand-date">2 КОНФОРКИ • 22 МИН</span>
+        </div>
+        <div class="header-actions">
+          <button id="sync-btn" class="btn-icon-text" title="Синхронизация между устройствами">
+            <span class="sync-dot" id="sync-indicator"></span>
+            <span class="text" id="sync-label">Синхронизация</span>
+          </button>
+          <button id="fullscreen-cook-btn" class="btn-primary-glow">
+            <span class="icon">👨‍🍳</span>
+            <span>Крупный таймер</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <h1 class="recipe-title">Farfalle al Salmone</h1>
+        <p class="recipe-subtitle">
+          Фарфалле со стейком сочного лосося, разбитым в густом соусе из сливок 33%, белого вина и пармезана. Подается с поджаренной чиабаттой.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Sub-Bar with Portion Scaler & Navigation Tabs -->
+  <nav class="sticky-nav">
+    <div class="container nav-content">
+      <!-- Portion Scaler -->
+      <div class="portion-scaler">
+        <span class="scaler-label">Порции:</span>
+        <div class="scaler-controls">
+          <button id="portion-decrease" class="scaler-btn" aria-label="Уменьшить порции">−</button>
+          <span id="portion-count" class="scaler-value">2</span>
+          <button id="portion-increase" class="scaler-btn" aria-label="Увеличить порции">+</button>
+        </div>
+        <span class="scaler-hint">Граммы пересчитываются на лету</span>
+      </div>
+
+      <!-- Quick Section Anchor Links -->
+      <div class="nav-links">
+        <a href="#ingredients-section" class="nav-link active">🛒 Покупки</a>
+        <a href="#prep-section" class="nav-link">🔪 Подготовка</a>
+        <a href="#steps-section" class="nav-link">⏱ Готовка</a>
+        <a href="#table-section" class="nav-link">🍽 Подача</a>
+        <a href="#faq-section" class="nav-link">💡 Секреты</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Layout -->
+  <main class="container main-content">
+
+    <!-- SECTION 1: INGREDIENTS -->
+    <section id="ingredients-section" class="content-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">СПИСОК В СУПЕРМАРКЕТ</span>
+          <h2 class="section-heading">Ингредиенты и бренды</h2>
+        </div>
+        <div class="section-actions">
+          <div class="checklist-progress">
+            <span id="ingredients-progress-text">Собрано: 0 / 9</span>
+            <div class="progress-track">
+              <div id="ingredients-progress-bar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+          <button id="copy-shopping-list-btn" class="btn-secondary">
+            <span class="icon">📋</span>
+            <span>Скопировать в заметки</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="ingredients-grid">
+        <!-- 1. Salmon -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="salmon" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Стейк или филе сёмги / лосося</h3>
+            <p class="brand-rec"><strong>Где искать:</strong> «Русское Море», «Defa», «ВкусВилл» или на льду в рыбном отделе. С ровными жировыми полосками.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="450" data-unit="г">450 г</span>
+            <span class="badge-fresh">Охлажденный</span>
+          </div>
+        </div>
+
+        <!-- 2. Farfalle -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="farfalle" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Паста Фарфалле («Бабочки»)</h3>
+            <p class="brand-rec"><strong>Бренд:</strong> Barilla (Farfalle n.65) или De Cecco (n.93). Твердые сорта — не развариваются.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="300" data-unit="г">300 г</span>
+            <span class="badge-subtle">Твердые сорта</span>
+          </div>
+        </div>
+
+        <!-- 3. Cream 33% -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="cream" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Сливки 33% (кулинарные)</h3>
+            <p class="brand-rec"><strong>Бренд:</strong> Parmalat «Chef» 33%, «Петмол» 33% или «Домик в деревне» 33%. 20% брать нельзя — свернутся от вина!</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="350" data-unit="мл">350 мл</span>
+            <span class="badge-critical">СТРОГО 33%!</span>
+          </div>
+        </div>
+
+        <!-- 4. Parmesan -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="parmesan" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Пармезан или Грана Падано</h3>
+            <p class="brand-rec"><strong>Бренд:</strong> Dolce Granto, Dziugas (12+ мес) или Сыробогатов Пармезан. Дает соленый ореховый умами.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="90" data-unit="г">90 г</span>
+            <span class="badge-subtle">Выдержанный</span>
+          </div>
+        </div>
+
+        <!-- 5. Wine -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="wine" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Сухое белое вино (Шардоне)</h3>
+            <p class="brand-rec"><strong>Сорт:</strong> Chardonnay или Pinot Grigio. Маслянистое, без резкой кислоты. Спирт выпарится, останется букет.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="100" data-unit="мл">100 мл в соус</span>
+            <span class="badge-subtle">+ в бокалы</span>
+          </div>
+        </div>
+
+        <!-- 6. Bread -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="bread" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Чиабатта или свежий багет</h3>
+            <p class="brand-rec">Из пекарни супермаркета. Подсушим на сухой сковороде, чтобы вымакивать сливочный соус.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="1" data-unit="шт">1 шт.</span>
+            <span class="badge-subtle">Хрустящая корочка</span>
+          </div>
+        </div>
+
+        <!-- 7. Cherry Tomatoes -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="cherry" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Томаты черри (сладкие)</h3>
+            <p class="brand-rec">Сладкие черри («Flamenco» или сливовидные). Карамелизуются и лопаются в горячих сливках.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="10" data-unit="шт">10 шт.</span>
+            <span class="badge-subtle">На ветке</span>
+          </div>
+        </div>
+
+        <!-- 8. Butter -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="butter" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Сливочное масло 82.5%</h3>
+            <p class="brand-rec">«Брест-Литовск», «Экомилк» или «Вкуснотеево». Придает рыбе шелковистый ореховый оттенок.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="40" data-unit="г">40 г</span>
+            <span class="badge-subtle">~2 ст. л.</span>
+          </div>
+        </div>
+
+        <!-- 9. Garlic & Pepper -->
+        <div class="ingredient-card">
+          <div class="card-header">
+            <label class="custom-checkbox">
+              <input type="checkbox" data-ing="garlic" class="ing-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="card-body">
+            <h3 class="ing-name">Чеснок & Свежий перец</h3>
+            <p class="brand-rec">Зубчики просто раздавим ножом и потом выбросим. Перец — крупного помола из мельницы.</p>
+          </div>
+          <div class="ing-calc">
+            <span class="amount" data-base-amount="3" data-unit="зубчика">3 зубчика</span>
+            <span class="badge-subtle">+ перец</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MISE EN PLACE -->
+    <section id="prep-section" class="content-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">МИЗ-АН-ПЛАС</span>
+          <h2 class="section-heading">Подготовка ДО включения плиты</h2>
+        </div>
+        <p class="section-desc">
+          Подготовьте всё заранее на разделочной доске. Когда огонь включен — времени резать уже не будет!
+        </p>
+      </div>
+
+      <div class="prep-checklist-box">
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>1. Подготовить лосось:</strong> Снять кожу (если есть), проверить пальцами реберные косточки и удалить. Посолить с двух сторон (<span class="amt" data-base="0.5" data-unit="ч. л.">0.5 ч. л.</span> соли) и поперчить из мельницы.
+          </div>
+        </div>
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>2. Помидоры черри:</strong> Вымыть и разрезать <span class="amt" data-base="10" data-unit="шт">10 шт.</span> пополам.
+          </div>
+        </div>
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>3. Чеснок:</strong> Очистить <span class="amt" data-base="3" data-unit="зубчика">3 зубчика</span> и сплющить плоской стороной широкого ножа.
+          </div>
+        </div>
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>4. Пармезан:</strong> Натереть <span class="amt" data-base="90" data-unit="г">90 г</span> на самой мелкой тёрке в миску.
+          </div>
+        </div>
+        <div class="prep-item">
+          <label class="custom-checkbox">
+            <input type="checkbox" class="prep-check">
+            <span class="checkmark"></span>
+          </label>
+          <div class="prep-text">
+            <strong>5. Хлеб & Вино:</strong> Нарезать чиабатту толстыми ломтями. Отмерить <span class="amt" data-base="100" data-unit="мл">100 мл</span> вина в стакан, остальное разлить по бокалам.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: COOKING STEPS -->
+    <section id="steps-section" class="content-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">ПОШАГОВЫЙ ПРОЦЕСС</span>
+          <h2 class="section-heading">Синхронная готовка на 2 конфорках</h2>
+        </div>
+        <p class="section-desc">
+          Две конфорки работают слаженно. Каждый шаг снабжен таймером со звуковым сигналом и точной мощностью.
+        </p>
+      </div>
+
+      <!-- Burners overview status bar -->
+      <div class="burner-overview-bar">
+        <div class="burner-card" id="burner-pot-card">
+          <div class="cookware-icon">🫕</div>
+          <div class="burner-meta">
+            <span class="burner-badge">КОНФОРКА 1</span>
+            <h4>Кастрюля (<span class="amt" data-base="2.5" data-unit="л">2.5 л</span> воды)</h4>
+            <span class="heat-pill" id="pot-heat-indicator">Мощность: 9 (Boost)</span>
+          </div>
+        </div>
+        <div class="burner-card" id="burner-pan-card">
+          <div class="cookware-icon">🍳</div>
+          <div class="burner-meta">
+            <span class="burner-badge">КОНФОРКА 2</span>
+            <h4>Сковорода (Основной соус)</h4>
+            <span class="heat-pill" id="pan-heat-indicator">Мощность: 7 ➔ 4 ➔ 6</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-container">
+
+        <!-- STEP 1: BREAD -->
+        <article class="step-card" data-step="1">
+          <div class="step-badge">01</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Хрустящие тосты из чиабатты</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
+            </div>
+            <p class="step-instructions">
+              Поставьте сухую сковороду на конфорку на мощность <strong>7</strong>. <strong>Без масла!</strong> Выложите ломти чиабатты и подсушите ровно по 1 минуте с каждой стороны до золотистого хруста. Снимите на тарелку.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="120" id="timer-display-1">02:00</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="1">▶ Старт (2 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="1" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 2: WATER & PASTA -->
+        <article class="step-card" data-step="2">
+          <div class="step-badge">02</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Запуск пасты Фарфалле</h3>
+              <span class="step-appliance">🫕 Кастрюля • Мощность 9 (Boost)</span>
+            </div>
+            <p class="step-instructions">
+              В кастрюлю налейте <span class="amt" data-base="2.5" data-unit="л">2.5 л</span> воды, доведите до бурного кипения на максимуме. Всыпьте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> соли</strong> и засыпьте <strong><span class="amt" data-base="300" data-unit="г">300 г</span> фарфалле</strong>. Перемешайте. Варим строго <strong>9 минут</strong> (al dente).
+            </p>
+            <div class="callout warning-callout">
+              ⚠️ <strong>Важно:</strong> Воду после варки пасты НЕ выливать! В ней ценный крахмал для эмульсии соуса.
+            </div>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="540" id="timer-display-2">09:00</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="2">▶ Варить пасту (9 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="2" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 3: SEAR SALMON SIDE 1 -->
+        <article class="step-card" data-step="3">
+          <div class="step-badge">03</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Обжарка лосося — Сторона 1</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
+            </div>
+            <p class="step-instructions">
+              В горячую сковороду налейте <strong><span class="amt" data-base="1" data-unit="ст. л.">1 ст. л.</span> растительного масла</strong> и бросьте <strong><span class="amt" data-base="40" data-unit="г">40 г</span> сливочного масла</strong>. Масло вспенится. Выложите стейки лосося. <strong>Не двигайте рыбу</strong> 2 минуты, чтобы запечаталась золотистая корочка.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="120" id="timer-display-3">02:00</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="3">▶ Жарим сторону 1 (2 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="3" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 4: SEAR SALMON SIDE 2 -->
+        <article class="step-card" data-step="4">
+          <div class="step-badge">04</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Обжарка лосося — Сторона 2</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
+            </div>
+            <p class="step-instructions">
+              Переверните стейки лопаткой на вторую сторону. Жарим ровно 1.5 минуты. Корочка запечатает соки внутри.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="90" id="timer-display-4">01:30</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="4">▶ Жарим сторону 2 (1.5 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="4" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 5: DEGLAZE WITH WINE -->
+        <article class="step-card" data-step="5">
+          <div class="step-badge">05</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Деглазирование белым вином</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 7</span>
+            </div>
+            <p class="step-instructions">
+              Влейте в сковороду <strong><span class="amt" data-base="100" data-unit="мл">100 мл</span> белого вина</strong>. Оно зашипит. Лопаткой <strong>разломайте стейк на крупные сочные кусочки</strong> (размером с грецкий орех). Кипятите 1 минуту для полного выпаривания резкого алкоголя.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="60" id="timer-display-5">01:00</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="5">▶ Выпарить вино (1 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="5" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 6: CREAM & PARMESAN -->
+        <article class="step-card" data-step="6">
+          <div class="step-badge">06</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Томление в сливках 33% и сыр</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 4 (Тихое кипение)</span>
+            </div>
+            <p class="step-instructions">
+              Бросьте в сковороду половинки черри и <span class="amt" data-base="3" data-unit="зубчика">3 зубчика</span> чеснока. Залейте <strong><span class="amt" data-base="350" data-unit="мл">350 мл</span> сливок 33%</strong>. Убавьте нагрев до <strong>4</strong>. Дайте слабо побулькать 3 минуты. В конце всыпьте <strong>3/4 натертого пармезана</strong> и поперчите. Соус загустеет.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="180" id="timer-display-6">03:00</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="6">▶ Томить соус (3 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="6" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 7: MANTECATURA -->
+        <article class="step-card" data-step="7">
+          <div class="step-badge">07</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Мантекатура: Объединение пасты с соусом</h3>
+              <span class="step-appliance">🍳 Сковорода • Мощность 6</span>
+            </div>
+            <p class="step-instructions">
+              Паста сварилась! Шумовкой или щипцами переложите фарфалле <strong>прямо в соус</strong>. Зачерпните из кастрюли <strong><span class="amt" data-base="70" data-unit="мл">70 мл</span> крахмальной воды</strong> и вылейте в сковороду. На мощности <strong>6</strong> активно перемешивайте 1.5 минуты. Соус превратится в шелковую эмульсию и плотно облепит пасту. Снимите с огня, зубчики чеснока удалите.
+            </p>
+            <div class="step-timer-wrapper">
+              <div class="timer-display" data-duration="90" id="timer-display-7">01:30</div>
+              <div class="timer-controls">
+                <button class="btn-timer start-timer-btn" data-timer-id="7">▶ Мантекатура (1.5 мин)</button>
+                <button class="btn-timer-reset reset-timer-btn" data-timer-id="7" title="Сбросить">↺</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 8: SERVING -->
+        <article class="step-card" data-step="8">
+          <div class="step-badge finish-badge">08</div>
+          <div class="step-content">
+            <div class="step-header">
+              <h3 class="step-title">Финальная подача</h3>
+              <span class="step-appliance">Подача</span>
+            </div>
+            <p class="step-instructions">
+              Поставьте горячую сковороду прямо в центр стола на деревянную доску или разложите по глубоким подогретым тарелкам. Посыпьте сверху остатками пармезана и свежемолотым черным перцем. Рядом выложите подсушенную чиабатту.<br>
+              <strong>Макайте хрустящий хлеб в горячий сливочно-лососевый соус. Приятного аппетита!</strong>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: TABLE & SERVING PREP -->
+    <section id="table-section" class="content-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">ПОСУДА И ПОДАЧА</span>
+          <h2 class="section-heading">Подготовка стола</h2>
+        </div>
+        <p class="section-desc">
+          Пока кастрюля с водой закипает (около 10 минут) — подготовьте стол и посуду, чтобы не отвлекаться от плиты во время активной готовки.
+        </p>
+      </div>
+
+      <div class="mood-grid">
+        <div class="mood-card">
+          <div class="mood-head">
+            <span class="mood-icon">🍽</span>
+            <h3>Подготовка подачи</h3>
+            <span class="mood-progress" id="table-progress">0 / 4</span>
+          </div>
+          <div class="mood-list">
+            <label class="mood-item">
+              <input type="checkbox" class="table-check">
+              <span class="checkmark"></span>
+              <span class="mood-text">Глубокие тарелки — подогреть горячей водой из-под крана и вытереть насухо. В холодной тарелке сливочный соус густеет за минуту.</span>
+            </label>
+            <label class="mood-item">
+              <input type="checkbox" class="table-check">
+              <span class="checkmark"></span>
+              <span class="mood-text">Деревянная доска в центр стола — на неё ставится горячая сковорода прямо с плиты.</span>
+            </label>
+            <label class="mood-item">
+              <input type="checkbox" class="table-check">
+              <span class="checkmark"></span>
+              <span class="mood-text">Хлеб в корзинку или на доску, рядом — мельница перца и тёртый пармезан в мисочке.</span>
+            </label>
+            <label class="mood-item">
+              <input type="checkbox" class="table-check">
+              <span class="checkmark"></span>
+              <span class="mood-text">Кувшин холодной воды: сливки 33% и вино — насыщенное блюдо, прохладная вода за столом обязательна.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mood-card">
+          <div class="mood-head">
+            <span class="mood-icon">🥂</span>
+            <h3>Подача вина</h3>
+          </div>
+          <ul class="mood-facts">
+            <li><strong>10–12 °C</strong> — оптимальная температура подачи Шардоне. Из морозилки вино теряет букет.</li>
+            <li><strong>20 минут в холодильнике</strong> перед подачей, если бутылка стояла в комнате.</li>
+            <li><strong><span class="amt" data-base="100" data-unit="мл">100 мл</span> отложить в стакан</strong> для соуса до того, как разольёте по бокалам.</li>
+            <li>Наливать на треть бокала — белому вину нужен контакт с воздухом для раскрытия букета.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: FAQ & SECRETS -->
+    <section id="faq-section" class="content-section">
+      <div class="section-header">
+        <div>
+          <span class="section-eyebrow">ШЕФ-СКОРАЯ ПОМОЩЬ</span>
+          <h2 class="section-heading">Что делать, если что-то пошло не так?</h2>
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Кажется, соус получился слишком густым?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Не паникуйте! Добавьте прямо в сковороду еще 2–3 столовые ложки горячей воды из кастрюли, где варились макароны, и энергично перемешайте. Крахмальная вода вернет соусу шелковистый жидкий глянец.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Соус жидковат и не держится на макаронах?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Всыпьте еще щедрую горсть тертого пармезана и дайте сковороде побулькать на мощности 6 ровно 1 минуту при постоянном помешивании. Сыр и крахмал мгновенно свяжут сливки.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Не свернутся ли сливки от вина?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Сливки жирностью 33% <strong>никогда не сворачиваются</strong> от вина или нагрева — в них слишком высокая доля молочного жира, защищающего белок. Именно поэтому брать 10% или 20% категорически нельзя!
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Какую сковороду выбрать?</span>
+            <span class="chevron">▼</span>
+          </summary>
+          <div class="faq-answer">
+            Идеально подойдет глубокая сковорода диаметром 26–28 см с высокими бортами (или сотейник), чтобы в нее свободно поместились и соус с рыбой, и вся отваренная паста для финального перемешивания.
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SYNC MODAL DIALOG -->
+  <dialog id="sync-dialog" class="chef-modal sync-modal">
+    <div class="chef-modal-content">
+      <div class="chef-modal-header">
+        <div class="sync-modal-title">
+          <h3>📱 Синхронизация с телефоном</h3>
+          <p>Отмечайте покупки на телефоне — дома в браузере всё обновится само.</p>
+        </div>
+        <button id="close-sync-btn" class="chef-close-btn" aria-label="Закрыть">✕ Закрыть</button>
+      </div>
+      <div class="sync-modal-body">
+        <div class="sync-qr-box">
+          <img id="sync-qr-img" class="sync-qr-img" alt="QR-код для открытия на телефоне" width="150" height="150">
+          <span class="sync-qr-hint">Наведите камеру телефона на QR-код</span>
+        </div>
+        <div class="sync-details">
+          <div class="sync-code-box">
+            <span class="sync-code-label">Код комнаты:</span>
+            <span class="sync-code-val" id="sync-room-code">cook-814</span>
+            <button id="copy-sync-link-btn" class="btn-secondary">📋 Скопировать ссылку</button>
+          </div>
+          <div class="sync-join-box">
+            <label for="sync-custom-input">Подключить другую комнату:</label>
+            <div class="sync-input-row">
+              <input type="text" id="sync-custom-input" placeholder="Например: cook-814" maxlength="20">
+              <button id="sync-join-btn" class="btn-secondary">Подключить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- CHEF MODE FULLSCREEN DIALOG -->
+  <dialog id="chef-mode-dialog" class="chef-modal">
+    <div class="chef-modal-content">
+      <div class="chef-modal-header">
+        <div class="chef-modal-progress">
+          <span id="chef-step-indicator">Шаг 1 из 8</span>
+          <div class="chef-bar-track">
+            <div id="chef-bar-fill" class="chef-bar-fill"></div>
+          </div>
+        </div>
+        <span class="chef-wake-pill" id="chef-wake-pill" hidden>🔆 Экран не гаснет</span>
+        <button id="close-chef-mode-btn" class="chef-close-btn" aria-label="Закрыть">✕ Закрыть</button>
+      </div>
+
+      <div class="chef-modal-body">
+        <span class="chef-appliance-pill" id="chef-appliance">🍳 Сковорода • Мощность 7</span>
+        <h2 class="chef-step-title" id="chef-title">Хрустящие тосты из чиабатты</h2>
+        <p class="chef-step-desc" id="chef-desc">Поставьте сковороду на индукцию на мощность 7. Без масла! Выложите ломти чиабатты и подсушите ровно по 1 минуте с каждой стороны до золотистого хруста.</p>
+
+        <!-- Big Giant Timer for Kitchen -->
+        <div class="chef-giant-timer-box" id="chef-timer-box">
+          <div class="giant-time" id="chef-time-display">02:00</div>
+          <div class="chef-timer-buttons">
+            <button id="chef-timer-toggle-btn" class="chef-btn-action">▶ Запустить таймер</button>
+            <button id="chef-timer-reset-btn" class="chef-btn-secondary">↺ Сброс</button>
+            <button id="chef-timer-plus-btn" class="chef-btn-secondary">+30 сек</button>
+          </div>
+        </div>
+        <p class="chef-next-preview" id="chef-next-preview"></p>
+      </div>
+
+      <div class="chef-modal-footer">
+        <button id="chef-prev-btn" class="chef-nav-btn">← Назад</button>
+        <div class="chef-keys-hint">Горячие клавиши: <strong>[Пробел]</strong> — таймер, <strong>[← / →]</strong> — шаги</div>
+        <button id="chef-next-btn" class="chef-nav-btn primary">Вперед →</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- FIXED TIMER DOCK (when scrolling) -->
+  <aside id="active-timers-bar" class="timer-dock hidden" aria-live="polite">
+    <div class="timers-bar-header">
+      <span class="pulse-dot"></span>
+      <span class="bar-title">На плите сейчас:</span>
+    </div>
+    <div id="active-timers-list" class="active-timers-list"></div>
+  </aside>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>Farfalle al Salmone — интерактивный кулинарный гид</p>
+      <button id="reset-all-btn" class="btn-ghost">↺ Сбросить прогресс</button>
+    </div>
+  </footer>
+
+  <script>
+/**
+ * Farfalle al Salmone — интерактивный кулинарный гид.
+ * Сквозная синхронизация телефон <-> ПК в реальном времени через ntfy.sh.
+ */
+
+const STORE_KEY = 'farfalle.v4';
+const BASE_PORTIONS = 2;
+const MAX_PORTIONS = 8;
+const SYNC_SERVER = 'https://ntfy.sh';
+const DEVICE_ID = 'dev_' + Math.random().toString(36).substring(2, 9) + Date.now();
+
+const state = {
+  portions: BASE_PORTIONS,
+  timers: {},
+  chefSteps: [],
+  chefIndex: 0,
+  wakeLock: null
+};
+
+let currentRoom = null;
+let eventSource = null;
+let syncBroadcastTimer = null;
+let lastRemoteTimestamp = 0;
+
+// -------------------------------------------------------------
+// 1. Хранилище
+// -------------------------------------------------------------
+function readStore() {
+  try {
+    return JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+function persist(skipBroadcast = false) {
+  const timers = {};
+  Object.entries(state.timers).forEach(([id, t]) => {
+    timers[id] = { remaining: t.remaining, endAt: t.endAt, running: t.running, done: t.done };
+  });
+
+  const payload = {
+    portions: state.portions,
+    timers,
+    ing: collect('.ing-check'),
+    prep: collect('.prep-check'),
+    table: collect('.table-check')
+  };
+
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(payload));
+  } catch (e) {}
+
+  if (!skipBroadcast) {
+    queueBroadcast();
+  }
+}
+
+function collect(selector) {
+  return Array.from(document.querySelectorAll(selector)).map(i => i.checked);
+}
+
+// -------------------------------------------------------------
+// 2. Сквозная синхронизация (Телефон <-> ПК)
+// -------------------------------------------------------------
+function getRoomId() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromUrl = urlParams.get('room');
+  if (fromUrl) {
+    const clean = fromUrl.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    if (clean) {
+      localStorage.setItem('farfalle_room', clean);
+      return clean;
+    }
+  }
+  const fromStorage = localStorage.getItem('farfalle_room');
+  if (fromStorage) return fromStorage;
+
+  const rnd = Math.floor(100 + Math.random() * 900);
+  const generated = `cook-${rnd}`;
+  localStorage.setItem('farfalle_room', generated);
+  return generated;
+}
+
+function queueBroadcast() {
+  if (!currentRoom) return;
+  clearTimeout(syncBroadcastTimer);
+
+  const dot = document.getElementById('sync-indicator');
+  if (dot) dot.classList.add('syncing');
+
+  syncBroadcastTimer = setTimeout(async () => {
+    const payload = {
+      sender: DEVICE_ID,
+      timestamp: Date.now(),
+      portions: state.portions,
+      ing: collect('.ing-check'),
+      prep: collect('.prep-check'),
+      table: collect('.table-check')
+    };
+
+    try {
+      await fetch(`${SYNC_SERVER}/farfalle-kitchen-${currentRoom}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (dot) {
+        dot.classList.remove('syncing');
+        dot.classList.remove('offline');
+      }
+    } catch (e) {
+      if (dot) dot.classList.add('offline');
+    }
+  }, 250);
+}
+
+function applyRemoteState(data) {
+  if (!data || data.sender === DEVICE_ID) return;
+  if (data.timestamp && data.timestamp <= lastRemoteTimestamp) return;
+  if (data.timestamp) lastRemoteTimestamp = data.timestamp;
+
+  let changedAny = false;
+
+  if (typeof data.portions === 'number' && data.portions !== state.portions) {
+    updatePortions(data.portions, { silent: true, skipBroadcast: true });
+    changedAny = true;
+  }
+
+  if (Array.isArray(data.ing)) {
+    const inputs = Array.from(document.querySelectorAll('.ing-check'));
+    inputs.forEach((input, idx) => {
+      if (typeof data.ing[idx] === 'boolean' && input.checked !== data.ing[idx]) {
+        input.checked = data.ing[idx];
+        input.closest('.ingredient-card')?.classList.toggle('checked', input.checked);
+        changedAny = true;
+      }
+    });
+    updateIngredientsProgress();
+  }
+
+  if (Array.isArray(data.prep)) {
+    const inputs = Array.from(document.querySelectorAll('.prep-check'));
+    inputs.forEach((input, idx) => {
+      if (typeof data.prep[idx] === 'boolean' && input.checked !== data.prep[idx]) {
+        input.checked = data.prep[idx];
+        input.closest('.prep-item')?.classList.toggle('completed', input.checked);
+        changedAny = true;
+      }
+    });
+  }
+
+  if (Array.isArray(data.table)) {
+    const inputs = Array.from(document.querySelectorAll('.table-check'));
+    inputs.forEach((input, idx) => {
+      if (typeof data.table[idx] === 'boolean' && input.checked !== data.table[idx]) {
+        input.checked = data.table[idx];
+        input.closest('.mood-item')?.classList.toggle('completed', input.checked);
+        changedAny = true;
+      }
+    });
+    updateTableProgress();
+  }
+
+  if (changedAny) {
+    persist(true);
+    showToast('🔄 Синхронизировано с телефона', { duration: 2500 });
+  }
+}
+
+async function initSync() {
+  currentRoom = getRoomId();
+  updateSyncUI();
+
+  // 1. Поллинг последнего состояния из буфера ntfy (catch-up)
+  try {
+    const resp = await fetch(`${SYNC_SERVER}/farfalle-kitchen-${currentRoom}/json?poll=1`);
+    if (resp.ok) {
+      const text = await resp.text();
+      const lines = text.trim().split('\n');
+      for (const line of lines) {
+        if (!line) continue;
+        try {
+          const msgObj = JSON.parse(line);
+          if (msgObj.event === 'message' && msgObj.message) {
+            const data = JSON.parse(msgObj.message);
+            applyRemoteState(data);
+          }
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+
+  // 2. Живая подписка на входящие события через SSE
+  if ('EventSource' in window) {
+    try {
+      if (eventSource) eventSource.close();
+      eventSource = new EventSource(`${SYNC_SERVER}/farfalle-kitchen-${currentRoom}/sse`);
+      eventSource.onmessage = (e) => {
+        try {
+          const msgObj = JSON.parse(e.data);
+          if (msgObj.event === 'message' && msgObj.message) {
+            const data = JSON.parse(msgObj.message);
+            applyRemoteState(data);
+          }
+        } catch (err) {}
+      };
+      eventSource.onerror = () => {
+        const dot = document.getElementById('sync-indicator');
+        if (dot) dot.classList.add('offline');
+      };
+      eventSource.onopen = () => {
+        const dot = document.getElementById('sync-indicator');
+        if (dot) dot.classList.remove('offline');
+      };
+    } catch (e) {}
+  }
+}
+
+function updateSyncUI() {
+  const codeEl = document.getElementById('sync-room-code');
+  const labelEl = document.getElementById('sync-label');
+  const qrImg = document.getElementById('sync-qr-img');
+
+  if (codeEl) codeEl.textContent = currentRoom;
+  if (labelEl) labelEl.textContent = currentRoom;
+
+  // Формируем чистую ссылку для телефона
+  const currentUrl = new URL(window.location.href);
+  currentUrl.searchParams.set('room', currentRoom);
+  const shareUrl = currentUrl.toString();
+
+  if (qrImg) {
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareUrl)}`;
+  }
+}
+
+function joinCustomRoom(newRoom) {
+  const clean = newRoom.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+  if (!clean) return;
+
+  localStorage.setItem('farfalle_room', clean);
+  currentRoom = clean;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('room', clean);
+  window.history.replaceState({}, '', url.toString());
+
+  initSync();
+  closeSyncModal();
+  showToast(`🔗 Подключена комната: ${clean}`);
+}
+
+function openSyncModal() {
+  updateSyncUI();
+  const dialog = document.getElementById('sync-dialog');
+  if (dialog) dialog.showModal();
+}
+
+function closeSyncModal() {
+  const dialog = document.getElementById('sync-dialog');
+  if (dialog) dialog.close();
+}
+
+// -------------------------------------------------------------
+// 3. Звуковой сигнал таймера (Web Audio API)
+// -------------------------------------------------------------
+let audioCtx = null;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return null;
+    audioCtx = new Ctor();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playTimerDoneChime() {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const freqs = [659.25, 987.77, 1318.51];
+
+    freqs.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const at = now + idx * 0.12;
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, at);
+
+      gain.gain.setValueAtTime(0, at);
+      gain.gain.linearRampToValueAtTime(0.22 / (idx + 1), at + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, at + 1.8);
+
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(at);
+      osc.stop(at + 1.8);
+    });
+
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 300]);
+  } catch (e) {}
+}
+
+function playClickSound() {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(440, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.04);
+
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.04);
+  } catch (e) {}
+}
+
+// -------------------------------------------------------------
+// 4. Тосты
+// -------------------------------------------------------------
+function showToast(message, opts = {}) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = message;
+  container.appendChild(toast);
+
+  while (container.children.length > 4) container.firstElementChild.remove();
+
+  setTimeout(() => {
+    toast.classList.add('leaving');
+    setTimeout(() => toast.remove(), 280);
+  }, opts.duration || 4000);
+}
+
+// -------------------------------------------------------------
+// 5. Порции
+// -------------------------------------------------------------
+function pluralize(n, one, few, many) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+  return many;
+}
+
+function formatAmount(base, unit, factor) {
+  const raw = base * factor;
+
+  switch (unit) {
+    case 'г':
+    case 'мл': {
+      let v;
+      if (raw >= 100) v = Math.round(raw / 10) * 10;
+      else if (raw >= 20) v = Math.round(raw / 5) * 5;
+      else v = Math.round(raw);
+      return `${v} ${unit}`;
+    }
+    case 'л': {
+      const v = Math.round(raw * 10) / 10;
+      return `${String(v).replace('.', ',')} л`;
+    }
+    case 'ст. л.':
+    case 'ч. л.': {
+      const v = Math.round(raw * 2) / 2;
+      return `${String(v).replace('.', ',')} ${unit}`;
+    }
+    case 'зубчика': {
+      const v = Math.max(1, Math.round(raw));
+      return `${v} ${pluralize(v, 'зубчик', 'зубчика', 'зубчиков')}`;
+    }
+    case 'шт': {
+      const v = Math.max(1, Math.round(raw));
+      return `${v} шт.`;
+    }
+    default: {
+      const v = Math.round(raw * 10) / 10;
+      return `${v} ${unit}`;
+    }
+  }
+}
+
+function updatePortions(newCount, opts = {}) {
+  const clamped = Math.min(MAX_PORTIONS, Math.max(1, newCount));
+  state.portions = clamped;
+
+  const factor = clamped / BASE_PORTIONS;
+  const countEl = document.getElementById('portion-count');
+  if (countEl) countEl.textContent = clamped;
+
+  document.querySelectorAll('[data-base-amount], .amt[data-base]').forEach(el => {
+    const base = parseFloat(el.dataset.baseAmount ?? el.dataset.base);
+    const unit = el.dataset.unit;
+    if (Number.isNaN(base) || !unit) return;
+    el.textContent = formatAmount(base, unit, factor);
+  });
+
+  const decBtn = document.getElementById('portion-decrease');
+  const incBtn = document.getElementById('portion-increase');
+  if (decBtn) decBtn.disabled = clamped <= 1;
+  if (incBtn) incBtn.disabled = clamped >= MAX_PORTIONS;
+
+  if (!opts.silent) {
+    playClickSound();
+    if (clamped > 4) {
+      showToast('⚠️ Больше 4 порций — жарьте лосось в два захода.');
+    }
+  }
+
+  if (state.chefSteps.length) renderChefStep();
+  persist(Boolean(opts.skipBroadcast));
+}
+
+// -------------------------------------------------------------
+// 6. Чек-листы
+// -------------------------------------------------------------
+function initChecklists(saved) {
+  wireChecklist('.ing-check', saved.ing, input => {
+    const card = input.closest('.ingredient-card');
+    if (card) card.classList.toggle('checked', input.checked);
+  }, updateIngredientsProgress);
+
+  wireChecklist('.prep-check', saved.prep, input => {
+    const item = input.closest('.prep-item');
+    if (item) item.classList.toggle('completed', input.checked);
+  });
+
+  wireChecklist('.table-check', saved.table, input => {
+    const item = input.closest('.mood-item');
+    if (item) item.classList.toggle('completed', input.checked);
+  }, updateTableProgress);
+}
+
+function wireChecklist(selector, savedArr, applyVisual, onChange) {
+  const inputs = Array.from(document.querySelectorAll(selector));
+
+  inputs.forEach((input, index) => {
+    if (Array.isArray(savedArr) && typeof savedArr[index] === 'boolean') {
+      input.checked = savedArr[index];
+    }
+    applyVisual(input);
+
+    input.addEventListener('change', () => {
+      playClickSound();
+      applyVisual(input);
+      if (onChange) onChange();
+      persist();
+    });
+  });
+
+  if (onChange) onChange();
+}
+
+function updateIngredientsProgress() {
+  const inputs = document.querySelectorAll('.ing-check');
+  const checked = document.querySelectorAll('.ing-check:checked').length;
+  const percent = inputs.length ? Math.round((checked / inputs.length) * 100) : 0;
+
+  const bar = document.getElementById('ingredients-progress-bar');
+  const text = document.getElementById('ingredients-progress-text');
+  if (bar) {
+    bar.style.width = `${percent}%`;
+    bar.classList.toggle('complete', checked === inputs.length && inputs.length > 0);
+  }
+  if (text) {
+    text.textContent = `Собрано: ${checked} / ${inputs.length}`;
+  }
+}
+
+function updateTableProgress() {
+  const el = document.getElementById('table-progress');
+  if (!el) return;
+  const total = document.querySelectorAll('.table-check').length;
+  const checked = document.querySelectorAll('.table-check:checked').length;
+  el.textContent = `${checked} / ${total}`;
+  el.classList.toggle('done', checked === total && total > 0);
+}
+
+function copyShoppingList() {
+  const cards = document.querySelectorAll('.ingredient-card');
+  const p = state.portions;
+  let text = `🛒 Farfalle al Salmone — на ${p} ${pluralize(p, 'порцию', 'порции', 'порций')}\n\n`;
+
+  cards.forEach(card => {
+    const name = card.querySelector('.ing-name')?.textContent.trim() || '';
+    const amount = card.querySelector('.ing-calc .amount')?.textContent.trim() || '';
+    const mark = card.querySelector('.ing-check')?.checked ? '✅' : '⬜';
+    text += `${mark} ${name} — ${amount}\n`;
+  });
+
+  text += '\nДома уже есть: соль, чёрный перец, растительное масло.';
+  text += '\n\n🍝 Farfalle al Salmone. Buon Appetito!';
+
+  const done = () => showToast('📋 Список скопирован в буфер обмена');
+  const fail = () => showToast('Выделите список вручную');
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done, fail));
+  } else {
+    legacyCopy(text, done, fail);
+  }
+}
+
+function legacyCopy(text, done, fail) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  ta.setAttribute('readonly', '');
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  ta.remove();
+  ok ? done() : fail();
+}
+
+// -------------------------------------------------------------
+// 7. Таймеры по Date.now()
+// -------------------------------------------------------------
+function formatTime(seconds) {
+  const s = Math.max(0, Math.round(seconds));
+  return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+}
+
+function startTimer(id) {
+  const t = state.timers[id];
+  if (!t || t.running) return;
+
+  getAudioContext();
+
+  if (t.remaining <= 0) t.remaining = t.total;
+  t.endAt = Date.now() + t.remaining * 1000;
+  t.running = true;
+  t.done = false;
+
+  highlightActiveStep(t.step);
+  renderTimer(id);
+  refreshWakeLock();
+  persist(true);
+}
+
+function pauseTimer(id) {
+  const t = state.timers[id];
+  if (!t || !t.running) return;
+
+  t.remaining = Math.max(0, Math.ceil((t.endAt - Date.now()) / 1000));
+  t.running = false;
+  t.endAt = 0;
+
+  renderTimer(id);
+  refreshWakeLock();
+  persist(true);
+}
+
+function toggleTimer(id) {
+  const t = state.timers[id];
+  if (!t) return;
+  t.running ? pauseTimer(id) : startTimer(id);
+}
+
+function resetTimer(id) {
+  const t = state.timers[id];
+  if (!t) return;
+
+  t.running = false;
+  t.done = false;
+  t.endAt = 0;
+  t.remaining = t.total;
+
+  renderTimer(id);
+  refreshWakeLock();
+  playClickSound();
+  persist(true);
+}
+
+function addTime(id, seconds) {
+  const t = state.timers[id];
+  if (!t) return;
+
+  if (t.running) {
+    t.endAt += seconds * 1000;
+    t.remaining = Math.max(0, Math.ceil((t.endAt - Date.now()) / 1000));
+  } else {
+    t.remaining = Math.max(0, t.remaining + seconds);
+    if (t.remaining > 0) t.done = false;
+  }
+
+  renderTimer(id);
+  playClickSound();
+  persist(true);
+}
+
+function finishTimer(id, opts = {}) {
+  const t = state.timers[id];
+  if (!t) return;
+
+  t.running = false;
+  t.remaining = 0;
+  t.endAt = 0;
+  t.done = true;
+
+  renderTimer(id);
+  refreshWakeLock();
+
+  if (opts.silent) {
+    showToast(`⏰ Таймер шага ${t.step} («${t.label}») истёк.`);
+  } else {
+    playTimerDoneChime();
+    showToast(`🔔 <strong>Время вышло!</strong> Шаг ${t.step}: ${t.label}`, { duration: 8000 });
+  }
+  persist(true);
+}
+
+function tick() {
+  let anyRunning = false;
+
+  Object.keys(state.timers).forEach(id => {
+    const t = state.timers[id];
+    if (!t.running) return;
+    anyRunning = true;
+
+    const remaining = Math.max(0, Math.ceil((t.endAt - Date.now()) / 1000));
+    if (remaining !== t.remaining) {
+      t.remaining = remaining;
+      renderTimer(id);
+    }
+    if (remaining <= 0) finishTimer(id);
+  });
+
+  if (anyRunning) renderTimerDock();
+}
+
+function renderTimer(id) {
+  const t = state.timers[id];
+  const display = document.getElementById(`timer-display-${id}`);
+  const btn = document.querySelector(`.start-timer-btn[data-timer-id="${id}"]`);
+  const wrapper = display ? display.closest('.step-timer-wrapper') : null;
+
+  if (display) display.textContent = formatTime(t.remaining);
+
+  if (btn) {
+    btn.classList.toggle('running', t.running);
+    if (t.running) btn.textContent = '⏸ Пауза';
+    else if (t.done) btn.textContent = '↺ Ещё раз';
+    else if (t.remaining < t.total) btn.textContent = '▶ Продолжить';
+    else btn.textContent = `▶ Старт (${formatMinutes(t.total)})`;
+  }
+
+  if (wrapper) {
+    wrapper.classList.toggle('timer-running', t.running);
+    wrapper.classList.toggle('timer-done', t.done);
+  }
+
+  const chefStep = state.chefSteps[state.chefIndex];
+  if (chefStep && String(chefStep.timerId) === String(id)) {
+    const chefTime = document.getElementById('chef-time-display');
+    const chefBtn = document.getElementById('chef-timer-toggle-btn');
+    const chefBox = document.getElementById('chef-timer-box');
+    if (chefTime) chefTime.textContent = formatTime(t.remaining);
+    if (chefBox) {
+      chefBox.classList.toggle('is-running', t.running);
+      chefBox.classList.toggle('is-done', t.done);
+    }
+    if (chefBtn) {
+      chefBtn.textContent = t.running ? '⏸ Пауза' : (t.done ? '↺ Ещё раз' : '▶ Запустить таймер');
+    }
+  }
+
+  renderTimerDock();
+}
+
+function formatMinutes(seconds) {
+  const m = seconds / 60;
+  return `${String(Math.round(m * 10) / 10).replace('.', ',')} мин`;
+}
+
+function renderTimerDock() {
+  const dock = document.getElementById('active-timers-bar');
+  const list = document.getElementById('active-timers-list');
+  if (!dock || !list) return;
+
+  const running = Object.entries(state.timers).filter(([, t]) => t.running);
+
+  if (running.length === 0) {
+    dock.classList.add('hidden');
+    list.replaceChildren();
+    list.dataset.signature = '';
+    syncDockHeight(0);
+    return;
+  }
+
+  dock.classList.remove('hidden');
+
+  const signature = running.map(([id]) => id).join(',');
+  if (list.dataset.signature !== signature) {
+    list.replaceChildren();
+    running.forEach(([id, t]) => {
+      const chip = document.createElement('div');
+      chip.className = 'timer-chip';
+      chip.dataset.timerId = id;
+
+      const name = document.createElement('span');
+      name.className = 'timer-chip-name';
+      name.textContent = `Шаг ${t.step}: ${t.label}`;
+
+      const time = document.createElement('span');
+      time.className = 'timer-chip-time';
+      time.textContent = formatTime(t.remaining);
+
+      const stop = document.createElement('button');
+      stop.className = 'timer-chip-stop';
+      stop.title = 'Пауза';
+      stop.textContent = '⏸';
+      stop.addEventListener('click', () => pauseTimer(id));
+
+      chip.append(name, time, stop);
+      list.appendChild(chip);
+    });
+    list.dataset.signature = signature;
+    syncDockHeight(dock.offsetHeight);
+  } else {
+    running.forEach(([id, t]) => {
+      const chip = list.querySelector(`.timer-chip[data-timer-id="${id}"] .timer-chip-time`);
+      if (chip) chip.textContent = formatTime(t.remaining);
+    });
+  }
+}
+
+function syncDockHeight(height) {
+  document.documentElement.style.setProperty('--dock-height', `${height}px`);
+}
+
+// -------------------------------------------------------------
+// 8. Конфорки
+// -------------------------------------------------------------
+const BURNER_MAP = {
+  1: { pan: 'Мощность: 7' },
+  2: { pot: 'Мощность: 9 (Boost)' },
+  3: { pan: 'Мощность: 7' },
+  4: { pan: 'Мощность: 7' },
+  5: { pan: 'Мощность: 7' },
+  6: { pan: 'Мощность: 4 (томление)' },
+  7: { pot: 'Воду не выливать!', pan: 'Мощность: 6 (мантекатура)' },
+  8: { }
+};
+
+function highlightActiveStep(stepNum) {
+  document.querySelectorAll('.step-card').forEach(card => {
+    card.classList.toggle('active-step', card.dataset.step === String(stepNum));
+  });
+
+  const potCard = document.getElementById('burner-pot-card');
+  const panCard = document.getElementById('burner-pan-card');
+  const potHeat = document.getElementById('pot-heat-indicator');
+  const panHeat = document.getElementById('pan-heat-indicator');
+
+  const map = BURNER_MAP[stepNum] || {};
+
+  if (potCard) potCard.classList.toggle('active-burner', Boolean(map.pot));
+  if (panCard) panCard.classList.toggle('active-burner', Boolean(map.pan));
+  if (map.pot && potHeat) potHeat.textContent = map.pot;
+  if (map.pan && panHeat) panHeat.textContent = map.pan;
+}
+
+// -------------------------------------------------------------
+// 9. Wake Lock
+// -------------------------------------------------------------
+function needsWakeLock() {
+  const chefDialog = document.getElementById('chef-mode-dialog');
+  const chefOpen = chefDialog && chefDialog.open;
+  const anyTimer = Object.values(state.timers).some(t => t.running);
+  return Boolean(chefOpen || anyTimer);
+}
+
+async function refreshWakeLock() {
+  const pill = document.getElementById('chef-wake-pill');
+
+  if (!('wakeLock' in navigator)) {
+    if (pill) pill.hidden = true;
+    return;
+  }
+
+  if (needsWakeLock()) {
+    if (state.wakeLock) return;
+    try {
+      state.wakeLock = await navigator.wakeLock.request('screen');
+      state.wakeLock.addEventListener('release', () => { state.wakeLock = null; });
+      if (pill) pill.hidden = false;
+    } catch (e) {
+      if (pill) pill.hidden = true;
+    }
+  } else if (state.wakeLock) {
+    try { await state.wakeLock.release(); } catch (e) {}
+    state.wakeLock = null;
+    if (pill) pill.hidden = true;
+  }
+}
+
+// -------------------------------------------------------------
+// 10. Режим «Шеф на кухне»
+// -------------------------------------------------------------
+function buildChefSteps() {
+  state.chefSteps = Array.from(document.querySelectorAll('.step-card')).map(card => ({
+    el: card,
+    step: Number(card.dataset.step),
+    titleEl: card.querySelector('.step-title'),
+    applianceEl: card.querySelector('.step-appliance'),
+    descEl: card.querySelector('.step-instructions'),
+    timerId: card.querySelector('.timer-display')?.id.replace('timer-display-', '') || null
+  }));
+}
+
+function openChefMode(index = 0) {
+  const chefDialog = document.getElementById('chef-mode-dialog');
+  if (!chefDialog) return;
+  state.chefIndex = index;
+  renderChefStep();
+  chefDialog.showModal();
+  refreshWakeLock();
+}
+
+function closeChefMode() {
+  const chefDialog = document.getElementById('chef-mode-dialog');
+  if (chefDialog) chefDialog.close();
+}
+
+function renderChefStep() {
+  const step = state.chefSteps[state.chefIndex];
+  if (!step) return;
+
+  const total = state.chefSteps.length;
+  const ind = document.getElementById('chef-step-indicator');
+  const bar = document.getElementById('chef-bar-fill');
+  const app = document.getElementById('chef-appliance');
+  const tit = document.getElementById('chef-title');
+  const desc = document.getElementById('chef-desc');
+
+  if (ind) ind.textContent = `Шаг ${step.step} из ${total}`;
+  if (bar) bar.style.width = `${((state.chefIndex + 1) / total) * 100}%`;
+  if (app && step.applianceEl) app.textContent = step.applianceEl.textContent.trim();
+  if (tit && step.titleEl) tit.textContent = step.titleEl.textContent.trim();
+  if (desc && step.descEl) desc.textContent = step.descEl.textContent.replace(/\s+/g, ' ').trim();
+
+  const box = document.getElementById('chef-timer-box');
+  if (box && step.timerId && state.timers[step.timerId]) {
+    const t = state.timers[step.timerId];
+    box.hidden = false;
+    const timeEl = document.getElementById('chef-time-display');
+    const btnEl = document.getElementById('chef-timer-toggle-btn');
+    if (timeEl) timeEl.textContent = formatTime(t.remaining);
+    if (btnEl) btnEl.textContent = t.running ? '⏸ Пауза' : (t.done ? '↺ Ещё раз' : '▶ Запустить таймер');
+    box.classList.toggle('is-running', t.running);
+    box.classList.toggle('is-done', t.done);
+  } else if (box) {
+    box.hidden = true;
+  }
+
+  const preview = document.getElementById('chef-next-preview');
+  const next = state.chefSteps[state.chefIndex + 1];
+  if (preview) {
+    preview.textContent = next ? `Следом: ${next.titleEl?.textContent.trim()}` : 'Это последний шаг — подача на стол.';
+  }
+
+  const prevBtn = document.getElementById('chef-prev-btn');
+  const nextBtn = document.getElementById('chef-next-btn');
+  if (prevBtn) prevBtn.disabled = state.chefIndex === 0;
+  if (nextBtn) nextBtn.textContent = state.chefIndex === total - 1 ? 'Завершить 🍝' : 'Вперед →';
+
+  highlightActiveStep(step.step);
+}
+
+function chefNext() {
+  if (state.chefIndex < state.chefSteps.length - 1) {
+    state.chefIndex++;
+    renderChefStep();
+    playClickSound();
+  } else {
+    closeChefMode();
+    showToast('🍝 Готово! Приятного аппетита!', { duration: 6000 });
+  }
+}
+
+function chefPrev() {
+  if (state.chefIndex > 0) {
+    state.chefIndex--;
+    renderChefStep();
+    playClickSound();
+  }
+}
+
+// -------------------------------------------------------------
+// 11. Скроллспай
+// -------------------------------------------------------------
+function initScrollSpy() {
+  const sections = Array.from(document.querySelectorAll('.nav-link'))
+    .map(link => ({ link, el: document.querySelector(link.getAttribute('href')) }))
+    .filter(s => s.el);
+
+  if (sections.length === 0) return;
+
+  const LINE = 120;
+  let queued = false;
+
+  function sync() {
+    queued = false;
+    const doc = document.documentElement;
+    const atBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - 4;
+
+    let current = atBottom ? sections[sections.length - 1] : sections[0];
+    if (!atBottom) {
+      sections.forEach(s => {
+        if (s.el.getBoundingClientRect().top <= LINE) current = s;
+      });
+    }
+
+    sections.forEach(s => s.link.classList.toggle('active', s === current));
+  }
+
+  window.addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(sync);
+  }, { passive: true });
+  window.addEventListener('resize', sync);
+  sync();
+}
+
+// -------------------------------------------------------------
+// 12. Сброс всего
+// -------------------------------------------------------------
+function resetAll() {
+  if (!confirm('Сбросить все галочки, таймеры и порции?')) return;
+
+  Object.keys(state.timers).forEach(id => {
+    const t = state.timers[id];
+    t.running = false;
+    t.done = false;
+    t.endAt = 0;
+    t.remaining = t.total;
+    renderTimer(id);
+  });
+
+  document.querySelectorAll('.ing-check, .prep-check, .table-check').forEach(input => {
+    input.checked = false;
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+
+  updatePortions(BASE_PORTIONS, { silent: true });
+
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  showToast('↺ Все таймеры и чеклисты сброшены.');
+}
+
+// -------------------------------------------------------------
+// 13. Инициализация приложения
+// -------------------------------------------------------------
+function initApp() {
+  const saved = readStore();
+
+  document.querySelectorAll('.timer-display').forEach(display => {
+    const id = display.id.replace('timer-display-', '');
+    const card = display.closest('.step-card');
+    const total = parseInt(display.dataset.duration, 10);
+
+    state.timers[id] = {
+      total,
+      remaining: total,
+      endAt: 0,
+      running: false,
+      done: false,
+      label: card?.querySelector('.step-title')?.textContent.trim() || '',
+      step: Number(card?.dataset.step || id)
+    };
+  });
+
+  const expired = [];
+  if (saved.timers) {
+    Object.entries(saved.timers).forEach(([id, s]) => {
+      const t = state.timers[id];
+      if (!t) return;
+
+      if (s.running && s.endAt) {
+        const remaining = Math.ceil((s.endAt - Date.now()) / 1000);
+        if (remaining > 0) {
+          t.running = true;
+          t.endAt = s.endAt;
+          t.remaining = remaining;
+        } else {
+          expired.push(id);
+        }
+      } else {
+        t.remaining = typeof s.remaining === 'number' ? s.remaining : t.total;
+        t.done = Boolean(s.done);
+      }
+    });
+  }
+
+  buildChefSteps();
+
+  updatePortions(typeof saved.portions === 'number' ? saved.portions : BASE_PORTIONS, { silent: true });
+
+  initChecklists(saved);
+  Object.keys(state.timers).forEach(renderTimer);
+
+  expired.forEach(id => finishTimer(id, { silent: true }));
+
+  // Слушатели кнопок таймеров
+  document.querySelectorAll('.start-timer-btn').forEach(btn => {
+    btn.addEventListener('click', () => toggleTimer(btn.dataset.timerId));
+  });
+  document.querySelectorAll('.reset-timer-btn').forEach(btn => {
+    btn.addEventListener('click', () => resetTimer(btn.dataset.timerId));
+  });
+
+  // Слушатели порций
+  document.getElementById('portion-increase')?.addEventListener('click', () => updatePortions(state.portions + 1));
+  document.getElementById('portion-decrease')?.addEventListener('click', () => updatePortions(state.portions - 1));
+
+  // Список покупок & сброс
+  document.getElementById('copy-shopping-list-btn')?.addEventListener('click', copyShoppingList);
+  document.getElementById('reset-all-btn')?.addEventListener('click', resetAll);
+
+  // Синхронизация
+  document.getElementById('sync-btn')?.addEventListener('click', openSyncModal);
+  document.getElementById('close-sync-btn')?.addEventListener('click', closeSyncModal);
+  document.getElementById('sync-dialog')?.addEventListener('close', () => {});
+
+  document.getElementById('copy-sync-link-btn')?.addEventListener('click', () => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('room', currentRoom);
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(currentUrl.toString()).then(() => showToast('📋 Ссылка на синхронизацию скопирована'));
+    } else {
+      legacyCopy(currentUrl.toString(), () => showToast('📋 Ссылка скопирована'), () => showToast('Скопируйте вручную'));
+    }
+  });
+
+  document.getElementById('sync-join-btn')?.addEventListener('click', () => {
+    const input = document.getElementById('sync-custom-input');
+    if (input && input.value) {
+      joinCustomRoom(input.value);
+    }
+  });
+
+  // Шеф режим
+  document.getElementById('fullscreen-cook-btn')?.addEventListener('click', () => openChefMode(state.chefIndex));
+  document.getElementById('close-chef-mode-btn')?.addEventListener('click', closeChefMode);
+  document.getElementById('chef-next-btn')?.addEventListener('click', chefNext);
+  document.getElementById('chef-prev-btn')?.addEventListener('click', chefPrev);
+
+  document.getElementById('chef-timer-toggle-btn')?.addEventListener('click', () => {
+    const s = state.chefSteps[state.chefIndex];
+    if (s?.timerId) toggleTimer(s.timerId);
+  });
+  document.getElementById('chef-timer-reset-btn')?.addEventListener('click', () => {
+    const s = state.chefSteps[state.chefIndex];
+    if (s?.timerId) resetTimer(s.timerId);
+  });
+  document.getElementById('chef-timer-plus-btn')?.addEventListener('click', () => {
+    const s = state.chefSteps[state.chefIndex];
+    if (s?.timerId) addTime(s.timerId, 30);
+  });
+
+  const chefDialog = document.getElementById('chef-mode-dialog');
+  if (chefDialog) chefDialog.addEventListener('close', refreshWakeLock);
+
+  window.addEventListener('keydown', e => {
+    if (!chefDialog || !chefDialog.open) return;
+    const onButton = e.target instanceof HTMLElement && e.target.closest('button');
+
+    if (e.code === 'Space' && !onButton) {
+      e.preventDefault();
+      const s = state.chefSteps[state.chefIndex];
+      if (s?.timerId) toggleTimer(s.timerId);
+    } else if (e.code === 'ArrowRight' && !onButton) {
+      e.preventDefault();
+      chefNext();
+    } else if (e.code === 'ArrowLeft' && !onButton) {
+      e.preventDefault();
+      chefPrev();
+    }
+  });
+
+  initScrollSpy();
+
+  // Запуск облачной синхронизации
+  initSync();
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      tick();
+      refreshWakeLock();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    const dock = document.getElementById('active-timers-bar');
+    if (dock) syncDockHeight(dock.classList.contains('hidden') ? 0 : dock.offsetHeight);
+  });
+
+  window.addEventListener('beforeunload', () => persist(false));
+
+  setInterval(tick, 250);
+  tick();
+}
+
+// Гарантированный старт даже если DOMContentLoaded уже произошел
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+  </script>
+</body>
+</html>

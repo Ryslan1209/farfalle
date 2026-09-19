@@ -1,0 +1,4 @@
+.claude/
+backup/
+*.log
+*.tmp
